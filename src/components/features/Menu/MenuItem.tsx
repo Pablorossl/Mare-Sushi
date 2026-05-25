@@ -16,11 +16,11 @@ export function MenuItem({ item }: MenuItemProps) {
       </span>
 
       <div className="flex-1">
-        <div className="flex justify-between items-baseline mb-1.5">
-          <span className="font-cormorant text-[1.15rem] font-[500] tracking-[0.02em]">
+        <div className="flex justify-between items-baseline mb-1.5 gap-2">
+          <span className="font-cormorant text-[1.15rem] font-[500] tracking-[0.02em] min-w-0">
             {item.name}
           </span>
-          <span className="text-[0.85rem] text-brand-gold font-[400] whitespace-nowrap ml-3">
+          <span className="text-[0.85rem] text-brand-gold font-[400] whitespace-nowrap shrink-0 ml-1">
             {item.price}
           </span>
         </div>

@@ -77,7 +77,7 @@ export function Reviews() {
         </ScrollReveal>
       </div>
 
-      <div className="grid grid-cols-3 gap-6 max-w-[1200px] mx-auto max-lg:grid-cols-1">
+      <div className="grid grid-cols-3 gap-6 max-w-[1200px] mx-auto max-lg:grid-cols-2 max-md:grid-cols-1">
         {REVIEWS.map((review, index) => (
           <ScrollReveal key={review.id} delay={((index + 1) % 4) as 0 | 1 | 2 | 3}>
             <ReviewCard review={review} />

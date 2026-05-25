@@ -13,7 +13,7 @@ import { cn } from '@/lib/utils'
  */
 export function Navbar() {
   const isScrolled = useNavScroll()
-  const { toggleMobileNav } = useNavigation()
+  const { toggleMobileNav, isMobileNavOpen } = useNavigation()
 
   return (
     <nav
@@ -65,14 +65,17 @@ export function Navbar() {
 
       {/* Hamburger — mobile only */}
       <button
-        className="hidden max-md:flex flex-col gap-[5px] bg-transparent border-none p-1"
+        className={cn(
+          'hidden max-md:flex flex-col gap-[5px] bg-transparent border-none p-2.5 -mr-2.5',
+          isMobileNavOpen && 'hamburger-open',
+        )}
         onClick={toggleMobileNav}
-        aria-label="Abrir menú de navegación"
-        aria-expanded={false}
+        aria-label={isMobileNavOpen ? 'Cerrar menú' : 'Abrir menú de navegación'}
+        aria-expanded={isMobileNavOpen}
       >
-        <span className="block w-6 h-px bg-brand-white transition-all duration-300" />
-        <span className="block w-6 h-px bg-brand-white transition-all duration-300" />
-        <span className="block w-6 h-px bg-brand-white transition-all duration-300" />
+        <span className="hamburger-line hamburger-line-1" />
+        <span className="hamburger-line hamburger-line-2" />
+        <span className="hamburger-line hamburger-line-3" />
       </button>
     </nav>
   )

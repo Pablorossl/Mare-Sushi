@@ -45,16 +45,16 @@ export function Hero() {
           className="w-[60px] h-px bg-brand-red mx-auto mb-8 hero-animate-4"
         />
 
-        <div className="flex gap-5 justify-center flex-wrap hero-animate-5">
+        <div className="flex gap-5 justify-center flex-wrap hero-animate-5 max-sm:flex-col max-sm:items-center max-sm:gap-3">
           <a
             href="#reserva"
-            className="relative overflow-hidden bg-brand-red border border-brand-red text-brand-white px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase font-[400] rounded-sm transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(192,57,43,0.3)] before:absolute before:inset-0 before:bg-white/10 before:-translate-x-full before:transition-transform hover:before:translate-x-0"
+            className="relative overflow-hidden bg-brand-red border border-brand-red text-brand-white px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase font-[400] rounded-sm transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(192,57,43,0.3)] before:absolute before:inset-0 before:bg-white/10 before:-translate-x-full before:transition-transform hover:before:translate-x-0 max-sm:w-full max-sm:text-center"
           >
             Reservar Mesa
           </a>
           <a
             href="#menu"
-            className="bg-transparent border border-white/30 text-brand-white px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase font-[400] rounded-sm transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-white hover:-translate-y-0.5"
+            className="bg-transparent border border-white/30 text-brand-white px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase font-[400] rounded-sm transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-white hover:-translate-y-0.5 max-sm:w-full max-sm:text-center"
           >
             Ver Carta
           </a>
