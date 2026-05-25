@@ -18,7 +18,7 @@ function StarRating({ count }: { count: number }) {
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <article className="relative bg-brand-card border border-[var(--border-subtle)] rounded p-9 transition-all duration-300 hover:border-[var(--border-strong)] hover:-translate-y-1 before:content-['"'] before:font-cormorant before:text-[8rem] before:leading-[0.6] before:text-brand-red/12 before:absolute before:top-6 before:right-6 before:pointer-events-none">
+    <article className={"relative bg-brand-card border border-[var(--border-subtle)] rounded p-9 transition-all duration-300 hover:border-[var(--border-strong)] hover:-translate-y-1 before:content-['\"'] before:font-cormorant before:text-[8rem] before:leading-[0.6] before:text-brand-red/12 before:absolute before:top-6 before:right-6 before:pointer-events-none"}>
       <StarRating count={review.stars} />
 
       <blockquote className="font-cormorant text-[1.1rem] font-light leading-[1.75] text-brand-cream italic mb-7">
