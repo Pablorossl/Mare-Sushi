@@ -1,7 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { cormorantGaramond, jost, notoSerifJP } from '@/lib/fonts'
 import { AppProviders } from '@/lib/providers/AppProviders'
-import { CustomCursor } from '@/components/features/CustomCursor'
 import { Navbar } from '@/components/layout/Navbar'
 import { MobileNav } from '@/components/layout/MobileNav'
 import { Toast } from '@/components/ui/Toast'
@@ -47,7 +46,6 @@ export default function RootLayout({
       <body>
         <AppProviders>
           {/* Client components that need shared state */}
-          <CustomCursor />
           <MobileNav />
           <Navbar />
 
