@@ -8,7 +8,7 @@ interface ScrollRevealProps {
   className?: string
   delay?: 0 | 1 | 2 | 3 | 4
   /** Override the wrapping element tag. Defaults to 'div'. */
-  as?: keyof JSX.IntrinsicElements
+  as?: keyof React.JSX.IntrinsicElements
 }
 
 const DELAY_CLASSES: Record<number, string> = {
@@ -35,6 +35,12 @@ export function ScrollReveal({
   useEffect(() => {
     const el = ref.current
     if (!el) return
+
+    // Fail open: if the API is unavailable the content must still be visible.
+    if (typeof IntersectionObserver === 'undefined') {
+      el.classList.add('visible')
+      return
+    }
 
     const observer = new IntersectionObserver(
       ([entry]) => {

@@ -56,6 +56,8 @@ export interface RestaurantDetail {
   icon: string
   label: string
   value: string
+  /** When present the value is rendered as a link (tel: / mailto:). */
+  href?: string
 }
 
 // ─── Form ──────────────────────────────────────────────────────────────────

@@ -27,7 +27,14 @@ src/
 ├── app/
 │   ├── globals.css            # Tailwind v4 @theme tokens + custom CSS
 │   ├── layout.tsx             # Root layout — fonts, metadata, providers
-│   └── page.tsx               # Home page — section composition
+│   ├── page.tsx               # Home page — section composition
+│   ├── not-found.tsx          # Branded 404
+│   ├── error.tsx              # Route error boundary
+│   ├── global-error.tsx       # Root-layout error boundary
+│   ├── icon.svg               # Favicon
+│   ├── opengraph-image.tsx    # Social card, generated at build (next/og)
+│   ├── robots.ts              # robots.txt
+│   └── sitemap.ts             # sitemap.xml
 │
 ├── components/
 │   ├── ui/                    # Shared, reusable primitives
@@ -39,10 +46,13 @@ src/
 │   ├── layout/                # Page-level chrome
 │   │   ├── Navbar.tsx         # Sticky nav with scroll-glass effect
 │   │   ├── MobileNav.tsx      # Full-screen mobile overlay
-│   │   └── Footer.tsx         # Brand, links, hours, contact
+│   │   ├── Footer.tsx         # Brand, links, hours, contact
+│   │   └── socialIcons.tsx    # Inline social SVG glyphs
+│   │
+│   ├── seo/
+│   │   └── RestaurantJsonLd.tsx # schema.org Restaurant structured data
 │   │
 │   └── features/              # Domain-specific sections
-│       ├── CustomCursor.tsx   # Custom two-part cursor (desktop)
 │       ├── Hero.tsx           # Hero section (server)
 │       ├── HeroBackground.tsx # Parallax bg (client, isolated)
 │       ├── About.tsx          # Story + pillars section
@@ -63,8 +73,7 @@ src/
 │   └── ToastContext.tsx       # Global toast message state
 │
 ├── hooks/
-│   ├── useNavScroll.ts        # Scrolled-past-threshold boolean
-│   └── useCursor.ts           # Custom cursor animation logic
+│   └── useNavScroll.ts        # Scrolled-past-threshold boolean
 │
 ├── lib/
 │   ├── fonts.ts               # next/font Google Fonts config
@@ -115,8 +124,19 @@ npm run dev          # Start dev server with Turbopack
 npm run build        # Production build
 npm run start        # Start production server
 npm run lint         # Run ESLint
+npm run lint:fix     # Run ESLint with autofix
 npm run type-check   # Run TypeScript compiler check
 ```
+
+---
+
+## Environment Variables
+
+| Variable | Required | Default | Purpose |
+|---|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | Recommended | `https://maresushi.es` | Canonical origin used by metadata, Open Graph, `robots.txt` and `sitemap.xml`. Set this to the real deployment origin or social previews and canonicals will point at the wrong host. |
+
+No secrets are used by this project — everything renders statically from `src/constants/`.
 
 ---
 
@@ -132,7 +152,7 @@ npm run type-check   # Run TypeScript compiler check
 | `MobileNav` | Client | Navigation context (open/close) |
 | `MenuTabs` | Client | Tab-switching state |
 | `ReservationForm` | Client | Form state, submit handling |
-| `CustomCursor`, `Toast` | Client | DOM events / context |
+| `Toast` | Client | Reads toast context |
 
 ### Data Flow
 

@@ -6,8 +6,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "type-check": "tsc --noEmit"
+    "lint": "eslint",
+    "type-check": "tsc --noEmit",
+    "lint:fix": "eslint --fix"
   },
   "dependencies": {
     "next": "^15.3.2",
@@ -22,6 +23,10 @@
     "eslint": "^9.27.0",
     "eslint-config-next": "^15.3.2",
     "tailwindcss": "^4.1.7",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "@eslint/eslintrc": "^3.3.1"
+  },
+  "engines": {
+    "node": ">=18.18.0"
   }
 }

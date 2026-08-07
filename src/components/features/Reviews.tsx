@@ -18,18 +18,21 @@ function StarRating({ count }: { count: number }) {
 
 function ReviewCard({ review }: { review: Review }) {
   return (
-    <article className={"relative bg-brand-card border border-[var(--border-subtle)] rounded p-9 transition-all duration-300 hover:border-[var(--border-strong)] hover:-translate-y-1 before:content-['\"'] before:font-cormorant before:text-[8rem] before:leading-[0.6] before:text-brand-red/12 before:absolute before:top-6 before:right-6 before:pointer-events-none"}>
+    <article className="relative bg-brand-card border border-[var(--border-subtle)] rounded p-9 transition-all duration-300 hover:border-[var(--border-strong)] hover:-translate-y-1 before:content-['“'] before:font-cormorant before:text-[8rem] before:leading-[0.6] before:text-brand-red/20 before:absolute before:top-6 before:right-6 before:pointer-events-none">
       <StarRating count={review.stars} />
 
       <blockquote className="font-cormorant text-[1.1rem] font-light leading-[1.75] text-brand-cream italic mb-7">
-        "{review.text}"
+        &ldquo;{review.text}&rdquo;
       </blockquote>
 
       <footer className="flex items-center gap-4 pt-5 border-t border-[var(--border-subtle)]">
         <div className="relative w-11 h-11 rounded-full overflow-hidden border border-[var(--border-strong)] shrink-0">
           <Image
             src={review.author.avatarUrl}
-            alt={review.author.name}
+            // Decorative: the author's name is already announced by the
+            // adjacent text, so a duplicate alt would read it twice.
+            alt=""
+            aria-hidden="true"
             fill
             sizes="44px"
             className="object-cover"
@@ -42,7 +45,7 @@ function ReviewCard({ review }: { review: Review }) {
             {review.author.location} · {review.author.date}
           </p>
         </div>
-        <span className="text-brand-red text-[0.7rem] tracking-[0.1em] uppercase ml-auto">
+        <span className="text-brand-red-light text-[0.7rem] tracking-[0.1em] uppercase ml-auto shrink-0">
           {review.platform}
         </span>
       </footer>
@@ -63,17 +66,17 @@ export function Reviews() {
     >
       <div className="max-w-[1200px] mx-auto mb-14">
         <ScrollReveal>
-          <p className="section-tag mb-3">Opiniones</p>
-        </ScrollReveal>
-        <ScrollReveal delay={1}>
-          <h2
+          <SectionHeader
             id="reviews-heading"
-            className="font-cormorant text-[clamp(2.2rem,4.5vw,3.5rem)] font-light leading-[1.1] tracking-[-0.01em]"
-          >
-            Lo que dicen
-            <br />
-            <em className="not-italic text-brand-red-light">nuestros clientes</em>
-          </h2>
+            tag="Opiniones"
+            title={
+              <>
+                Lo que dicen
+                <br />
+                <em className="not-italic text-brand-red-light">nuestros clientes</em>
+              </>
+            }
+          />
         </ScrollReveal>
       </div>
 

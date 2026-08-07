@@ -1,21 +1,43 @@
 import type { RestaurantDetail } from '@/types'
 
+/**
+ * Canonical site URL. Override per environment with NEXT_PUBLIC_SITE_URL so
+ * metadata, canonicals and the sitemap point at the real deployment.
+ */
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL?.replace(/\/$/, '') || 'https://maresushi.es'
+
 export const RESTAURANT = {
   name: 'MARE SUSHI',
   tagline: 'Fuengirola · Málaga',
   subtitle: 'Fuengirola · Málaga · España',
   description:
     'Gastronomía japonesa premium en el corazón de la Costa del Sol. Ingredientes frescos, técnica ancestral y creatividad mediterránea.',
-  address: 'Av. Condes de San Isidro, 24 · Fuengirola, Málaga',
-  addressFull: 'Av. Condes de San Isidro, 24\n29640 Fuengirola\nMálaga, España',
+  address: {
+    street: 'Av. Condes de San Isidro, 24',
+    postalCode: '29640',
+    city: 'Fuengirola',
+    region: 'Málaga',
+    country: 'España',
+    countryCode: 'ES',
+    /** Single-line form used in the reservation sidebar. */
+    inline: 'Av. Condes de San Isidro, 24 · Fuengirola, Málaga',
+  },
+  /** Human-readable phone. Keep `phoneHref` in sync — it powers the tel: link. */
   phone: '+34 952 000 000',
+  phoneHref: '+34952000000',
   email: 'reservas@maresushi.es',
   openingSince: '2024',
+  /**
+   * TODO(owner): replace with the real profile URLs before launch.
+   * Entries left as `null` are rendered as non-interactive placeholders
+   * instead of dead `href="#"` links.
+   */
   socials: {
-    instagram: '#',
-    facebook: '#',
-    tripadvisor: '#',
-    google: '#',
+    instagram: null as string | null,
+    facebook: null as string | null,
+    tripadvisor: null as string | null,
+    google: null as string | null,
   },
   schedule: {
     monday: 'Cerrado',
@@ -25,26 +47,36 @@ export const RESTAURANT = {
   },
 } as const
 
+/** Opening hours in schema.org format, derived from RESTAURANT.schedule. */
+export const OPENING_HOURS = [
+  { days: ['Tuesday', 'Wednesday', 'Thursday'], opens: '13:00', closes: '16:00' },
+  { days: ['Tuesday', 'Wednesday', 'Thursday'], opens: '20:00', closes: '23:00' },
+  { days: ['Friday', 'Saturday', 'Sunday'], opens: '13:00', closes: '16:30' },
+  { days: ['Friday', 'Saturday', 'Sunday'], opens: '20:00', closes: '23:30' },
+]
+
 export const RESTAURANT_DETAILS: RestaurantDetail[] = [
   {
     icon: '📍',
     label: 'Dirección',
-    value: 'Av. Condes de San Isidro, 24 · Fuengirola, Málaga',
+    value: RESTAURANT.address.inline,
   },
   {
     icon: '🕐',
     label: 'Horario',
-    value: 'Mar–Dom: 13:00–16:00 y 20:00–23:30',
+    value: RESTAURANT.schedule.summary,
   },
   {
     icon: '📞',
     label: 'Teléfono',
-    value: '+34 952 000 000',
+    value: RESTAURANT.phone,
+    href: `tel:${RESTAURANT.phoneHref}`,
   },
   {
     icon: '✉',
     label: 'Email',
-    value: 'reservas@maresushi.es',
+    value: RESTAURANT.email,
+    href: `mailto:${RESTAURANT.email}`,
   },
 ]
 

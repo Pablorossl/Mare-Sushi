@@ -1,6 +1,5 @@
 'use client'
 
-import Link from 'next/link'
 import { useNavigation } from '@/contexts/NavigationContext'
 import { useNavScroll } from '@/hooks/useNavScroll'
 import { NAV_LINKS } from '@/constants/navigation'
@@ -30,15 +29,19 @@ export function Navbar() {
         isScrolled && 'max-md:py-4',
       )}
     >
-      {/* Logo */}
-      <Link href="#" className="flex flex-col items-start no-underline group">
+      {/* Logo — plain anchor: next/link adds routing overhead for a same-page hash */}
+      <a
+        href="#hero"
+        aria-label="MARE SUSHI Fuengirola — ir al inicio"
+        className="flex flex-col items-start no-underline"
+      >
         <span className="font-cormorant text-2xl font-[500] tracking-[0.15em] text-brand-white leading-none">
           MARE SUSHI
         </span>
-        <span className="text-[0.62rem] tracking-[0.35em] text-brand-red uppercase font-[400] mt-0.5">
+        <span className="text-[0.62rem] tracking-[0.35em] text-brand-red-light uppercase font-[400] mt-0.5">
           Fuengirola · Málaga
         </span>
-      </Link>
+      </a>
 
       {/* Desktop links */}
       <div className="flex gap-10 items-center max-md:hidden">
@@ -65,11 +68,14 @@ export function Navbar() {
 
       {/* Hamburger — mobile only */}
       <button
+        type="button"
         className={cn(
-          'hidden max-md:flex flex-col gap-[5px] bg-transparent border-none p-2.5 -mr-2.5',
+          // w/h-11 keeps the tap target at the 44px WCAG minimum
+          'hidden max-md:flex flex-col items-center justify-center gap-[5px] w-11 h-11 -mr-2.5 bg-transparent border-none',
           isMobileNavOpen && 'hamburger-open',
         )}
         onClick={toggleMobileNav}
+        aria-controls="mobile-nav"
         aria-label={isMobileNavOpen ? 'Cerrar menú' : 'Abrir menú de navegación'}
         aria-expanded={isMobileNavOpen}
       >

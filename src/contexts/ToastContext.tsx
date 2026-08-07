@@ -4,6 +4,8 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
+  useRef,
   useState,
   type ReactNode,
 } from 'react'
@@ -20,11 +22,21 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const [isVisible, setIsVisible] = useState(false)
   const [message, setMessage] = useState('')
 
+  const timer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Each toast owns the hide timer, so a second toast cannot be cut short by
+  // the timer of the first one.
   const showToast = useCallback((msg: string, duration = 4500) => {
+    if (timer.current) clearTimeout(timer.current)
     setMessage(msg)
     setIsVisible(true)
-    const timer = setTimeout(() => setIsVisible(false), duration)
-    return () => clearTimeout(timer)
+    timer.current = setTimeout(() => setIsVisible(false), duration)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (timer.current) clearTimeout(timer.current)
+    }
   }, [])
 
   return (

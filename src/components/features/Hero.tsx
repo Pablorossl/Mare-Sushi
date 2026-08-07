@@ -1,4 +1,5 @@
 import { HeroBackground } from './HeroBackground'
+import { Button } from '@/components/ui/Button'
 
 /**
  * Hero section — Server Component.
@@ -10,7 +11,7 @@ export function Hero() {
     <section
       id="hero"
       aria-label="Bienvenida a MARE SUSHI"
-      className="relative h-screen min-h-[700px] max-md:min-h-svh flex items-center justify-center overflow-hidden"
+      className="relative h-svh min-h-[600px] md:h-screen md:min-h-[700px] flex items-center justify-center overflow-hidden"
     >
       {/* Background with parallax (client) */}
       <HeroBackground />
@@ -23,8 +24,11 @@ export function Hero() {
 
       {/* Content */}
       <div className="relative z-10 text-center px-8 max-w-[900px]">
-        <p className="font-noto-jp text-[0.9rem] tracking-[0.5em] text-brand-red font-[200] mb-6 hero-animate-1">
-          海 · 鮨 · 藤吉ola
+        <p
+          lang="ja"
+          className="font-noto-jp text-[0.9rem] tracking-[0.5em] text-brand-red-light font-[300] mb-6 hero-animate-1"
+        >
+          海 · 鮨 · 天ぷら
         </p>
 
         <h1 className="font-cormorant text-[clamp(3.5rem,8vw,7rem)] font-light leading-[0.95] tracking-[-0.01em] mb-1 hero-animate-2 max-md:text-[3rem]">
@@ -46,18 +50,12 @@ export function Hero() {
         />
 
         <div className="flex gap-5 justify-center flex-wrap hero-animate-5 max-sm:flex-col max-sm:items-center max-sm:gap-3">
-          <a
-            href="#reserva"
-            className="relative overflow-hidden bg-brand-red border border-brand-red text-brand-white px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase font-[400] rounded-sm transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-0.5 hover:shadow-[0_12px_30px_rgba(192,57,43,0.3)] before:absolute before:inset-0 before:bg-white/10 before:-translate-x-full before:transition-transform hover:before:translate-x-0 max-sm:w-full max-sm:text-center"
-          >
+          <Button as="a" href="#reserva" className="max-sm:w-full">
             Reservar Mesa
-          </a>
-          <a
-            href="#menu"
-            className="bg-transparent border border-white/30 text-brand-white px-10 py-4 text-[0.75rem] tracking-[0.2em] uppercase font-[400] rounded-sm transition-all duration-[350ms] ease-[cubic-bezier(0.16,1,0.3,1)] hover:border-brand-white hover:-translate-y-0.5 max-sm:w-full max-sm:text-center"
-          >
+          </Button>
+          <Button as="a" href="#menu" variant="outline" className="max-sm:w-full">
             Ver Carta
-          </a>
+          </Button>
         </div>
       </div>
 

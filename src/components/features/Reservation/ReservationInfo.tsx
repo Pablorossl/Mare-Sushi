@@ -45,13 +45,22 @@ export function ReservationInfo() {
               >
                 {detail.icon}
               </span>
-              <div>
-                <h4 className="text-[0.72rem] tracking-[0.2em] uppercase text-[var(--text-muted)] mb-1">
+              <div className="min-w-0">
+                <h3 className="text-[0.72rem] tracking-[0.2em] uppercase text-[var(--text-muted)] mb-1">
                   {detail.label}
-                </h4>
-                <p className="font-cormorant text-[1.15rem] font-[400] text-brand-white">
-                  {detail.value}
-                </p>
+                </h3>
+                {detail.href ? (
+                  <a
+                    href={detail.href}
+                    className="font-cormorant text-[1.15rem] font-[400] text-brand-white no-underline break-words transition-colors duration-300 hover:text-brand-red-light"
+                  >
+                    {detail.value}
+                  </a>
+                ) : (
+                  <p className="font-cormorant text-[1.15rem] font-[400] text-brand-white break-words">
+                    {detail.value}
+                  </p>
+                )}
               </div>
             </div>
           ))}

@@ -15,12 +15,17 @@
   --color-brand-cream: #ede9e0;
   --color-brand-red: #c0392b;
   --color-brand-red-light: #e05041;
+  /* For small red text on the tinted --red-glow surface, where red-light
+     drops below AA. */
+  --color-brand-red-soft: #ef6a5c;
   --color-brand-gold: #b8965a;
 
   /* Typography — maps to next/font CSS variables injected at runtime */
   --font-cormorant: var(--font-cormorant-garamond), "Cormorant Garamond", serif;
   --font-jost: var(--font-jost-sans), "Jost", sans-serif;
-  --font-noto-jp: var(--font-noto-serif-jp), "Noto Serif JP", serif;
+  /* System Japanese serif stack — no webfont download. See lib/fonts.ts. */
+  --font-noto-jp: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP",
+    "MS PMincho", serif;
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -29,9 +34,13 @@
 :root {
   --border-subtle: rgba(255, 255, 255, 0.08);
   --border-strong: rgba(255, 255, 255, 0.15);
-  --text-muted: rgba(248, 246, 242, 0.45);
-  --text-dim: rgba(248, 246, 242, 0.25);
+  /* Opacities tuned so composited text clears WCAG AA (4.5:1) on every
+     surface used in the design (#080808, #111111, #161616). */
+  --text-muted: rgba(248, 246, 242, 0.62);
+  --text-dim: rgba(248, 246, 242, 0.48);
   --red-glow: rgba(192, 57, 43, 0.15);
+  /* Height reserved for the fixed navbar when jumping to an anchor. */
+  --nav-offset: 6.5rem;
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -49,6 +58,10 @@
   html {
     scroll-behavior: smooth;
     font-size: 16px;
+    /* `clip` instead of `hidden`: `hidden` turns the element into a scroll
+       container, which silently breaks `position: sticky` descendants
+       (the reservation sidebar). */
+    overflow-x: clip;
   }
 
   body {
@@ -57,7 +70,7 @@
     font-family: var(--font-jost), "Jost", sans-serif;
     font-weight: 300;
     line-height: 1.7;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   a,
@@ -69,6 +82,55 @@
     display: block;
     max-width: 100%;
   }
+
+  /* Offset in-page anchors so the fixed navbar never covers a section title. */
+  section[id],
+  [id="hero"] {
+    scroll-margin-top: var(--nav-offset);
+  }
+
+  /* Visible, brand-consistent keyboard focus for every interactive element. */
+  :focus-visible {
+    outline: 2px solid #e05041;
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   Utilities
+────────────────────────────────────────────────────────── */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Skip link — visually hidden until focused */
+.skip-link {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -150%);
+  z-index: 2000;
+  background: #c0392b;
+  color: #f8f6f2;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-radius: 0 0 3px 3px;
+  transition: transform 0.25s ease;
+}
+
+.skip-link:focus-visible {
+  transform: translate(-50%, 0);
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -131,15 +193,23 @@ body::before {
 /* ──────────────────────────────────────────────────────────
    Hero — Background parallax container
 ────────────────────────────────────────────────────────── */
+/* Outer node: parallax translate only (no transition — it is driven per frame) */
 .hero-bg {
   position: absolute;
   inset: 0;
   overflow: hidden;
+  will-change: transform;
+}
+
+/* Inner node: the slow scale-in on mount */
+.hero-bg-inner {
+  position: absolute;
+  inset: 0;
   transform: scale(1.05);
   transition: transform 8s ease-out;
 }
 
-.hero-bg.loaded {
+.hero-bg-inner.loaded {
   transform: scale(1);
 }
 
@@ -215,7 +285,9 @@ body::before {
   font-size: 0.65rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: #c0392b;
+  /* Lighter than --color-brand-red so this small uppercase text clears
+     AA contrast on the dark surfaces. */
+  color: #e05041;
   font-weight: 400;
   margin-bottom: 0.75rem;
 }
@@ -235,24 +307,6 @@ body::before {
 
 .section-tag.centered::before {
   display: none;
-}
-
-/* ──────────────────────────────────────────────────────────
-   Menu — Item hover left-border glow
-────────────────────────────────────────────────────────── */
-.menu-item::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 0;
-  background: var(--red-glow);
-  transition: width 0.4s ease;
-}
-
-.menu-item:hover::before {
-  width: 3px;
 }
 
 /* ──────────────────────────────────────────────────────────
@@ -285,6 +339,10 @@ body::before {
   grid-column: span 4;
 }
 
+/* Below 1024px the grid rows become `auto`. Because every tile is a
+   `position: relative` box holding a `fill` image, it has no intrinsic
+   height — without an explicit height here the whole gallery collapsed to
+   zero between 769px and 1023px. */
 @media (max-width: 1024px) {
   .g1,
   .g2,
@@ -296,6 +354,10 @@ body::before {
   .g8 {
     grid-column: span 1;
     grid-row: span 1;
+  }
+
+  .gallery-item {
+    height: 300px;
   }
 }
 
@@ -374,6 +436,53 @@ body::before {
    Date input — browser chrome adjustments
 ────────────────────────────────────────────────────────── */
 input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(1) opacity(0.4);
+  filter: invert(1) opacity(0.6);
   cursor: pointer;
+}
+
+/* The no-JS fallback lives in a <noscript> stylesheet in app/layout.tsx —
+   see the comment there for why it is not a class on <html>. */
+
+/* ──────────────────────────────────────────────────────────
+   Reduced motion
+   Honour the OS-level preference: keep the layout identical,
+   remove the movement.
+────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* The marquee and the hero zoom are pure decoration — stop them outright
+     rather than snapping them to their end state. */
+  .marquee-track {
+    animation: none;
+    transform: none;
+  }
+
+  .hero-bg-inner {
+    transform: none;
+  }
+
+  .reveal,
+  .mobile-nav-link,
+  .hero-animate-1,
+  .hero-animate-2,
+  .hero-animate-3,
+  .hero-animate-4,
+  .hero-animate-5,
+  .hero-scroll-indicator {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }

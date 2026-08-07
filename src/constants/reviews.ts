@@ -10,7 +10,7 @@ export const REVIEWS: Review[] = [
       location: 'Fuengirola',
       date: 'Mayo 2025',
       avatarUrl:
-        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80&auto=format&fit=crop&facepad=3&faces=1',
+        'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80&auto=format&fit=facearea&facepad=2.5',
     },
     platform: 'Google',
   },
@@ -23,7 +23,7 @@ export const REVIEWS: Review[] = [
       location: 'Marbella',
       date: 'Abril 2025',
       avatarUrl:
-        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&auto=format&fit=crop&facepad=3',
+        'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&q=80&auto=format&fit=facearea&facepad=2.5',
     },
     platform: 'TripAdvisor',
   },
@@ -36,7 +36,7 @@ export const REVIEWS: Review[] = [
       location: 'Málaga',
       date: 'Junio 2025',
       avatarUrl:
-        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&auto=format&fit=crop&facepad=3',
+        'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&auto=format&fit=facearea&facepad=2.5',
     },
     platform: 'Google',
   },

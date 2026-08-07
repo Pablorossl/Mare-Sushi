@@ -30,7 +30,7 @@ export function MenuItem({ item }: MenuItemProps) {
         </p>
 
         {item.tag && (
-          <span className="inline-block mt-2.5 bg-[var(--red-glow)] border border-brand-red/30 text-brand-red-light text-[0.6rem] tracking-[0.15em] uppercase px-2.5 py-1 rounded-sm">
+          <span className="inline-block mt-2.5 bg-[var(--red-glow)] border border-brand-red/30 text-brand-red-soft text-[0.6rem] tracking-[0.15em] uppercase px-2.5 py-1 rounded-sm">
             {item.tag}
           </span>
         )}

@@ -32,7 +32,7 @@ next-env.d.ts
 
 # OS
 .DS_Store
-Thumbbs.db
+Thumbs.db
 
 # Editor
 .idea/

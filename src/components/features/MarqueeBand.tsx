@@ -21,7 +21,7 @@ export function MarqueeBand() {
         {items.map(({ word, key }) => (
           <span
             key={key}
-            className="text-[0.7rem] tracking-[0.3em] uppercase px-12 text-white/85 font-[400]"
+            className="text-[0.7rem] tracking-[0.3em] uppercase px-12 text-white font-[400]"
           >
             {word}
           </span>

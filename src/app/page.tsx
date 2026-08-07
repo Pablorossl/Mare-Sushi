@@ -14,15 +14,18 @@ import { Footer } from '@/components/layout/Footer'
  */
 export default function HomePage() {
   return (
-    <main>
-      <Hero />
-      <MarqueeBand />
-      <About />
-      <Menu />
-      <Gallery />
-      <Reviews />
-      <Reservation />
+    <>
+      <main id="contenido">
+        <Hero />
+        <MarqueeBand />
+        <About />
+        <Menu />
+        <Gallery />
+        <Reviews />
+        <Reservation />
+      </main>
+      {/* Outside <main>: the footer is not part of the page's primary content */}
       <Footer />
-    </main>
+    </>
   )
 }

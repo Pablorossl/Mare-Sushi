@@ -90,9 +90,9 @@ export function About() {
               <div className="text-brand-red text-lg mb-2" aria-hidden="true">
                 ✦
               </div>
-              <h4 className="font-cormorant text-[1.15rem] font-[500] mb-1.5">
+              <h3 className="font-cormorant text-[1.15rem] font-[500] mb-1.5">
                 {pillar.title}
-              </h4>
+              </h3>
               <p className="text-[0.82rem] text-[var(--text-muted)] leading-[1.6]">
                 {pillar.description}
               </p>

@@ -8,9 +8,15 @@ export function cn(...classes: (string | undefined | null | false)[]): string {
 }
 
 /**
- * Returns today's date as an ISO string (YYYY-MM-DD),
- * safe to call during SSR (no window dependency).
+ * Returns today's date as YYYY-MM-DD in the *local* timezone.
+ *
+ * `toISOString()` would convert to UTC first, which reports yesterday for any
+ * local time before the UTC offset (e.g. 00:30 in Madrid during CEST) and would
+ * let the reservation form accept a past date.
  */
 export function getTodayISO(): string {
-  return new Date().toISOString().split('T')[0]
+  const now = new Date()
+  const month = String(now.getMonth() + 1).padStart(2, '0')
+  const day = String(now.getDate()).padStart(2, '0')
+  return `${now.getFullYear()}-${month}-${day}`
 }
